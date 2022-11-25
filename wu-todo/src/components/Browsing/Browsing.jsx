@@ -19,7 +19,7 @@ const Browsing = ({item, editTodo, setModal, setInitialModal}) => {
 			</div>
 			<div className="browsingBlock">
 				<img className="actionItemFile" src={FileIcon} alt="file"/>
-				<div className="browsingContent">{item.file.length && item.file[0].name}</div>
+				{/* <div className="browsingContent">{item.file && item.file[0].name}</div> */}
 			</div>
 			<button
 				className="editTodoBtn"

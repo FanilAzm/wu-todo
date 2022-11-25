@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const Form = ({addTodo}) => {
+const EditForm = ({item, editTodo, setModal}) => {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [date, setDate] = useState('');
@@ -8,14 +8,7 @@ const Form = ({addTodo}) => {
 
 	const submitHandler = event => {
 		event.preventDefault();
-		addTodo({
-			id: Date.now(),
-			title,
-			description,
-			date,
-			delay: false,
-			file: fileInput.current.files
-		});
+		editTodo();
 	}
 
 	const disableDates = () => {
@@ -33,7 +26,7 @@ const Form = ({addTodo}) => {
 				<label>Наименование задачи</label>
 				<input
 					type="text"
-					value={title}
+					value={item.title || ''}
 					onChange={e => setTitle(e.target.value)}
 					required
 				/>
@@ -42,7 +35,7 @@ const Form = ({addTodo}) => {
 				<label>Описание задачи</label>
 				<textarea
 					type="text"
-					value={description}
+					value={item.description}
 					onChange={e => setDescription(e.target.value)}
 				/>
 			</div>
@@ -50,7 +43,7 @@ const Form = ({addTodo}) => {
 				<label>Сроки исполнения</label>
 				<input
 					type="date"
-					value={date}
+					value={item.date}
 					onChange={e => setDate(e.target.value)}
 					min={disableDates()}
 					required
@@ -59,9 +52,9 @@ const Form = ({addTodo}) => {
 			<div className="formAction">
 				<input className="addFile" type="file" ref={fileInput} />
 			</div>
-			<button className="addTodoBtn" type="submit">Добавить</button>
+			<button className="addTodoBtn" type="submit">Сохранить</button>
 		</form>
 	)
 }
 
-export default Form;
+export default EditForm;
