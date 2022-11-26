@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import FileIcon from '../../assets/images/fileSave.svg';
 
 const Browsing = ({item, editTodo, setModal, setInitialModal}) => {
+	const url = URL.createObjectURL(item.file[0]);
+
 	return (
 		<div>
 			<div className="browsingBlock">
@@ -19,7 +21,9 @@ const Browsing = ({item, editTodo, setModal, setInitialModal}) => {
 			</div>
 			<div className="browsingBlock">
 				<img className="actionItemFile" src={FileIcon} alt="file"/>
-				{/* <div className="browsingContent">{item.file && item.file[0].name}</div> */}
+				<div className="browsingContent">
+					<a href={url} download>{item.file[0].name}</a>
+				</div>
 			</div>
 			<button
 				className="editTodoBtn"

@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import Form from '../Form/Form';
-import EditForm from '../EditForm/EditForm';
 import Modal from '../Modal/Modal';
 import Browsing from '../Browsing/Browsing';
 import Alert from '../Alert/Alert';
@@ -51,7 +50,8 @@ const ModalContent = ({
 				)
 			case 'edit':
 				return (
-					<EditForm
+					<Form
+						editMode={true}	
 						item={viewTodo}
 						editTodo={editTodo}
 						setModal={setModal}

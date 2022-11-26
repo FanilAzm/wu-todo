@@ -161,4 +161,8 @@
 .browsingContent {
   margin-left: 10px;
 }
+.browsingContent a {
+  color: #000;
+  text-decoration: none;
+}
 /*# sourceMappingURL=App.css.map */

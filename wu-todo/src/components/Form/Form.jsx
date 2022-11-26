@@ -1,10 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
-const Form = ({addTodo}) => {
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [date, setDate] = useState('');
+const Form = ({addTodo, editMode = false, item, editTodo, setModal}) => {
+	const [title, setTitle] = useState(editMode ? item.title : '');
+	const [description, setDescription] = useState(editMode ? item.description : '');
+	const [date, setDate] = useState(editMode ? item.date : '');
 	const fileInput = React.createRef();
+
+	useEffect(() => {
+		if(item) {
+			const file = new File(['info'], `${item.file[0].name}`, {type: 'text/plain'});
+			const dataTransfer = new DataTransfer(file);
+			dataTransfer.items.add(file);
+			fileInput.current.files = dataTransfer.files;
+		}
+	}, [item])
 
 	const submitHandler = event => {
 		event.preventDefault();
@@ -18,6 +27,18 @@ const Form = ({addTodo}) => {
 		});
 	}
 
+	const submitEditHandler = event => {
+		event.preventDefault();
+		editTodo({
+			id: item.id,
+			title,
+			description,
+			date,
+			file: fileInput.current.files
+		});
+		setModal(false);
+	}
+
 	const disableDates = () => {
 		const today = new Date();
 		const dd = today.getDate() + 1;
@@ -28,7 +49,7 @@ const Form = ({addTodo}) => {
 	}
 
 	return (
-		<form onSubmit={submitHandler}>
+		<form onSubmit={editMode ? submitEditHandler : submitHandler}>
 			<div className="formGroup">
 				<label>Наименование задачи</label>
 				<input
@@ -59,7 +80,7 @@ const Form = ({addTodo}) => {
 			<div className="formAction">
 				<input className="addFile" type="file" ref={fileInput} />
 			</div>
-			<button className="addTodoBtn" type="submit">Добавить</button>
+			<button className="addTodoBtn" type="submit">{editMode ? 'Сохранить' : 'Добавить'}</button>
 		</form>
 	)
 }

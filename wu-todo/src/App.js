@@ -4,14 +4,7 @@ import TodoList from './components/TodoList/TodoList';
 import ModalContent from './components/ModalContent/ModalContent';
 
 function App() {
-  const [todos, setTodos] = useState([{
-    id: Date.now(),
-    title: 'Разработать todo лист',
-    description: 'Описание задачи',
-    date: '2022-11-26',
-    delay: false,
-    file: null
-  }]);
+  const [todos, setTodos] = useState([]);
   const [modal, setModal] = useState(false);
   const [initialModal, setInitialModal] = useState('');
   const [viewTodo, setViewTodo] = useState(null);
@@ -27,7 +20,12 @@ function App() {
   }
 
   const editTodo = (item) => {
-    console.log(item);
+    const newTodos = todos.map(todo => {
+      if(todo.id === item.id) {
+        return {...todo, ...item}
+      }
+    })
+    setTodos(newTodos);
   }
 
   return (
