@@ -28,7 +28,11 @@ const Browsing = ({item, setModal, setInitialModal}) => {
 			</div>
 			<div className="browsingBlock">
 				<div>Просрок задачи:</div>
-				<div className="browsingContent">{item.delay ? 'Просрочена' : 'Еще можно выполнить'}</div>
+				{
+					item.success
+					? <div className="browsingContent">Выполнено</div>
+					: <div className="browsingContent">{item.delay ? 'Просрочена' : 'Еще можно выполнить'}</div>
+				}
 			</div>
 			<div className="browsingBlock">
 				<img className="actionItemFile" src={FileIcon} alt="file"/>
