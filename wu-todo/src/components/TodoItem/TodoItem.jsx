@@ -1,10 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import dayjs from 'dayjs';
 import DeleteIcon from '../../assets/images/delete.svg';
 
-const TodoItem = ({item, setViewTodo, setModal, setInitialModal}) => {
+const TodoItem = ({item, setViewTodo, setModal, setInitialModal, timeWatch}) => {
+
+    useEffect(() => {
+        timeWatch(item.id);
+    }, [item])
+
     return (
-        <div className="todoItem">
+        <div className={item.success ? 'todoItem active' : 'todoItem'}>
             <div
                 className="todoItemContent"
                 onClick={() => {
@@ -15,7 +20,7 @@ const TodoItem = ({item, setViewTodo, setModal, setInitialModal}) => {
             >
                 <div className="todoItemTitle">
                     <div>{item.title}</div>
-                    <div className="todoItemDate">
+                    <div className={item.delay ? 'todoItemDate delay' : 'todoItemDate'}>
                         { dayjs(item.date).format("DD MMMM YYYY") }
                     </div>
                 </div>

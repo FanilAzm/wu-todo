@@ -28,6 +28,16 @@ function App() {
     setTodos(newTodos);
   }
 
+  const timeWatch = (id) => {
+    const newTodos = todos.map(todo => {
+      if(todo.id === id) {
+        todo.delay = Date.parse(new Date()) > Date.parse(todo.date);
+      }
+      return todo;
+    })
+    setTodos(newTodos);
+  }
+
   return (
     <div className="app">
       <TodoList
@@ -36,6 +46,7 @@ function App() {
         setViewTodo={setViewTodo}
         setModal={setModal}
         setInitialModal={setInitialModal}
+        timeWatch={timeWatch}
       />
       <ModalContent
         modal={modal}

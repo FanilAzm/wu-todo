@@ -2,7 +2,7 @@ import React from "react";
 import TodoItem from '../TodoItem/TodoItem';
 import AddIcon from '../../assets/images/add.svg';
 
-const TodoList = ({todos, setModal, setInitialModal, removeTodo, setViewTodo}) => {
+const TodoList = ({todos, setModal, setInitialModal, removeTodo, setViewTodo, timeWatch}) => {
     return (
         <div className="todoList">
             <div className="todoListTitle">
@@ -27,6 +27,7 @@ const TodoList = ({todos, setModal, setInitialModal, removeTodo, setViewTodo}) =
                             setViewTodo={setViewTodo}
                             setModal={setModal}
                             setInitialModal={setInitialModal}
+                            timeWatch={timeWatch}
                         />
                     )
                 })

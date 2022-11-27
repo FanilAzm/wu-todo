@@ -4,11 +4,12 @@ const Form = ({addTodo, editMode = false, item, editTodo, setModal}) => {
 	const [title, setTitle] = useState(editMode ? item.title : '');
 	const [description, setDescription] = useState(editMode ? item.description : '');
 	const [date, setDate] = useState(editMode ? item.date : '');
+	const [checked, setChecked] = useState(editMode ? item.success : false);
 	const fileInput = React.createRef();
 
 	useEffect(() => {
 		if(item) {
-			const file = new File(['info'], `${item.file[0].name}`, {type: 'text/plain'});
+			const file = new File(['info'], `${item.file.length ? item.file[0].name : ''}`, {type: 'text/plain'});
 			const dataTransfer = new DataTransfer(file);
 			dataTransfer.items.add(file);
 			fileInput.current.files = dataTransfer.files;
@@ -23,7 +24,8 @@ const Form = ({addTodo, editMode = false, item, editTodo, setModal}) => {
 			description,
 			date,
 			delay: false,
-			file: fileInput.current.files
+			file: fileInput.current.files,
+			success: checked
 		});
 	}
 
@@ -34,7 +36,8 @@ const Form = ({addTodo, editMode = false, item, editTodo, setModal}) => {
 			title,
 			description,
 			date,
-			file: fileInput.current.files
+			file: fileInput.current.files,
+			success: checked
 		});
 		setModal(false);
 	}
@@ -77,8 +80,18 @@ const Form = ({addTodo, editMode = false, item, editTodo, setModal}) => {
 					required
 				/>
 			</div>
+			{
+				editMode && (
+					<div className="checkbox-wrapper">
+						<label htmlFor="checkbox">
+							<input id="checkbox" type="checkbox" checked={checked} onChange={() => setChecked(!checked)} />
+							<span>Задача выполнена?</span>
+						</label>
+					</div>
+				)
+			}
 			<div className="formAction">
-				<input className="addFile" type="file" ref={fileInput} />
+				<input className="addFile" type="file" ref={fileInput} accept="audio/*,video/*,image/*,.doc,.docx,application/msword" />
 			</div>
 			<button className="addTodoBtn" type="submit">{editMode ? 'Сохранить' : 'Добавить'}</button>
 		</form>
